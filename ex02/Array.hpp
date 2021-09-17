@@ -2,10 +2,6 @@
 #define ARRAY_HPP
 
 #include <iostream>
-#include <cctype>
-#include <exception>
-#include <string>
-#include <ctime>
 #include <cstdlib>
 
 template <class T>
@@ -16,13 +12,15 @@ class Array
 		T *arr;
 	public:
 		Array():n(0), arr(NULL) {}
+
 		~Array() {if (this->n > 0) delete[] this->arr;}
+
 		Array(unsigned int n): n(n), arr(NULL) {this->arr = new T[this->n]();}
+
 		unsigned int size() const {return this->n;}
-		Array(Array<T> const &origin): n(origin.n), arr(NULL) 
-		{
-				*this = origin;
-		}
+
+		Array(Array<T> const &origin): n(origin.n), arr(NULL) {*this = origin;}
+
 		class OutOfLimitsException: public std::exception 
 		{
 			virtual const char* what() const throw()
@@ -30,7 +28,8 @@ class Array
 				return ("Out of limits!");
 			}
 		};
-		Array &operator=(Array const &origin)
+
+		Array<T> &operator=(Array<T> const &origin)
 		{
 			if (this->n > 0)
 				delete[] this->arr;
@@ -44,16 +43,19 @@ class Array
 			this->n = origin.n;
 			return (*this);
 		}
-		T &operator[](unsigned int length)
+
+		T &operator[](unsigned int index)
 		{
-			if (length >= this->n)
-				throw Array::OutOfLimitsException();
-			return (this->arr[length]);
+			if (index >= this->n)
+				throw Array<T>::OutOfLimitsException();
+			return (this->arr[index]);
 		}
-		T const &operator[](size_t length) const
+
+		T const &operator[](unsigned int index) const
 		{
-			return (operator[](length));
+			return (operator[](index));
 		}
+
 };
 
 #endif

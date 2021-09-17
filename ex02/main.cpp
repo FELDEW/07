@@ -1,51 +1,70 @@
 #include <Array.hpp>
 
-#define MAX_VAL 750
+/*
+class Awesome
+{
+	public:
+		Awesome(void): _n( 42 ) { return; }
+		int get(void) const { return this->_n; }
+	private:
+		int _n;
+};
+std::ostream & operator<<(std::ostream& o, Awesome const & rhs) { o << rhs.get(); return o; }
+*/
 int main(int, char**)
 {
-    Array<int> numbers(MAX_VAL);
-    int* mirror = new int[MAX_VAL];
-    srand(time(NULL));
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        const int value = rand();
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
+    Array<int> numbers(10);
+    for (int i = 0; i < 10; i++)
+	{
+        numbers[i] = i;
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+        std::cout << numbers[i] << std::endl;
+	}
+
     {
         Array<int> tmp = numbers;
         Array<int> test(tmp);
     }
-    for (int i = 0; i < MAX_VAL; i++)
-    {
-        if (mirror[i] != numbers[i])
-        {
-            std::cerr << "didn't save the same value!!" << std::endl;
-            return 1;
-        }
-    }
+
     try
     {
-        numbers[-2] = 0;
+        numbers[20] = 0;
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
-    try
+	std::cout << "--------------" << std::endl;
+	/*
+	Array<Awesome> awesomes2;
+	Array<Awesome> awesomes(5);
+
+	for (int i = 0; i < 5; i++)
+	{
+        awesomes[i] = Awesome();
+	}
+
+	for (int i = 0; i < 5; i++)
+	{
+        std::cout << awesomes[i] << std::endl;
+	}
+
     {
-        numbers[MAX_VAL] = 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
+        Array<Awesome> tmp = awesomes;
+        Array<Awesome> test(tmp);
     }
 
-    for (int i = 0; i < MAX_VAL; i++)
+    try
     {
-        numbers[i] = rand();
+        awesomes[20] = Awesome();
     }
-    delete [] mirror;
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+	*/
     return 0;
 }
