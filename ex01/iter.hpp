@@ -10,4 +10,11 @@ void iter(T *array, size_t length, void(*f)(T const &))
 		(*f)(array[i]);
 }
 
+template <typename T>
+void print(T const & x)
+{
+	std::cout << x << std::endl;
+	return;
+}
+
 #endif
